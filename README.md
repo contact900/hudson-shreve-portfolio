@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hudson Shreve — Personal Portfolio
 
-## Getting Started
+Personal portfolio website for Hudson Shreve: sales leader, AI builder, founder.
+Built with Next.js 14+, Tailwind CSS v4, TypeScript, and deployed on Vercel.
 
-First, run the development server:
+**Live site:** [hudsonshreve.com](https://hudsonshreve.com)
+
+---
+
+## Tech Stack
+
+- **Framework:** Next.js (App Router, TypeScript)
+- **Styles:** Tailwind CSS v4
+- **Fonts:** Space Grotesk + JetBrains Mono (via `next/font/google`)
+- **Data:** GitHub public API (server-fetched, revalidates every hour)
+- **Deploy:** Vercel
+
+---
+
+## Local Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy to Vercel
 
-## Learn More
+### Option 1 — Vercel CLI (recommended)
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Install Vercel CLI globally (if not already installed)
+npm i -g vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Deploy from the project root
+vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Follow prompts:
+#   - Link to your Vercel account
+#   - Set project name (e.g., "hudson-shreve-portfolio")
+#   - Framework: Next.js (auto-detected)
+#   - No env vars required (GitHub API is public/unauthenticated)
 
-## Deploy on Vercel
+# Deploy to production
+vercel --prod
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Option 2 — Vercel Dashboard (Git integration)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push this repo to GitHub (or your preferred Git host)
+2. Go to [vercel.com/new](https://vercel.com/new)
+3. Import the repository
+4. Framework will be auto-detected as **Next.js**
+5. No environment variables needed
+6. Click **Deploy**
+
+### Custom Domain
+
+After deploying:
+1. Go to your project on vercel.com → **Settings → Domains**
+2. Add `hudsonshreve.com`
+3. Update your DNS:
+   - **A record:** `@` → `76.76.21.21`
+   - **CNAME:** `www` → `cname.vercel-dns.com`
+
+---
+
+## Project Structure
+
+```
+├── app/
+│   ├── layout.tsx        # Root layout, fonts, metadata
+│   ├── page.tsx          # Assembles all sections
+│   └── globals.css       # Tailwind v4 + custom CSS
+├── components/
+│   ├── Nav.tsx           # Sticky nav with scroll effect
+│   ├── Hero.tsx          # Hero with animated particle canvas
+│   ├── About.tsx         # Story + highlight cards
+│   ├── Experience.tsx    # Timeline of 3 companies
+│   ├── Projects.tsx      # Server component — fetches GitHub repos
+│   ├── Skills.tsx        # Skill categories
+│   ├── Recognition.tsx   # Awards section
+│   ├── Contact.tsx       # Contact cards + CTA
+│   └── AnimateOnScroll.tsx  # Intersection Observer scroll animations
+├── vercel.json           # Vercel config + security headers
+└── README.md
+```
+
+---
+
+## GitHub API
+
+The Projects section fetches `https://api.github.com/users/contact900/repos` as a **React Server Component** — no client-side fetching, no CORS issues. Data revalidates every 3600 seconds (1 hour) via Next.js ISR.
+
+No GitHub token is required for public repos (60 requests/hour unauthenticated rate limit is more than sufficient for a portfolio site).
+
+---
+
+## Build
+
+```bash
+npm run build   # Production build
+npm run start   # Start production server locally
+```

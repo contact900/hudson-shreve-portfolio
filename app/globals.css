@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: #08080f;
+  --color-surface: #0e0e1c;
+  --color-surface-2: #141428;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-text: #eeeef8;
+  --color-muted: #6b7080;
+  --color-subtle: #9499a8;
+  --color-accent: #00d4ff;
+  --color-accent-dark: #0099bb;
+  --color-accent-2: #8b5cf6;
+  --color-accent-3: #10b981;
+
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #08080f;
+  color: #eeeef8;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
+
+::selection {
+  background: rgba(0, 212, 255, 0.25);
+  color: #eeeef8;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #08080f; }
+::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 3px; }
+
+/* Scroll reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+.delay-4 { transition-delay: 0.32s; }
+.delay-5 { transition-delay: 0.40s; }
+.delay-6 { transition-delay: 0.48s; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow card */
+.glow-card {
+  background: #0e0e1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.glow-card:hover {
+  border-color: rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Accent line */
+.accent-line {
+  display: inline-block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #00d4ff, #8b5cf6);
+  border-radius: 2px;
+}
+
+/* Section label */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #00d4ff;
+}
+
+/* Focus ring */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #00d4ff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skill tag hover */
+.skill-tag {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #9499a8;
+  cursor: default;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+/* View all link hover */
+.view-all-link {
+  color: #6b7080;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.view-all-link:hover { color: #eeeef8; }
+
+/* CTA email button hover */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  border-radius: 10px;
+  color: #08080f;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  box-shadow: 0 4px 24px rgba(0,212,255,0.2);
+}
+.cta-button:hover { opacity: 0.88; }
+
+/* Recognition card hover */
+.award-card {
+  padding: 32px;
+  background: #0e0e1c;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Repo card link styles */
+.repo-link {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  text-decoration: none;
+  height: 100%;
+  min-height: 180px;
+}
+

@@ -47,19 +47,8 @@ export default function Nav() {
           justifyContent: "space-between",
         }}
       >
-        {/* Logo */}
-        <a
-          href="#"
-          style={{
-            fontFamily: "var(--font-jetbrains-mono), monospace",
-            fontSize: "0.85rem",
-            color: "#00d4ff",
-            textDecoration: "none",
-            letterSpacing: "0.05em",
-          }}
-        >
-          hs<span style={{ color: "#8b5cf6" }}>.</span>dev
-        </a>
+        {/* Logo placeholder — keeps flex layout balanced */}
+        <div />
 
         {/* Desktop links */}
         <ul
